@@ -127,3 +127,13 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Excel files
+.csv
+.xlsx
+.xlsm
+
+# Eclipse config files
+.project
+.pydevproject
+
