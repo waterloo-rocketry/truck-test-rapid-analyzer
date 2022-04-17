@@ -17,7 +17,7 @@ class SimplifiedConsts():
     All of the constants and the class are treated in a more object-oriented fashion.
     An advantage of doing this is that all locations will be determined dymanically based on
     what order thay are added in, which means that adding and removing variables will be much
-    easer. 
+    easier. 
     
     """
 

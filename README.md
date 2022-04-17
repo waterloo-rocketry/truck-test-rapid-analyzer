@@ -10,13 +10,14 @@ In order to use it, the following things need to be set up.
  3. The target_list and target_list_sheetnames must be configured. Every file name (without the file extension, this is set in the code to '.csv') that is to be analyzed must be specified on a newline in the target_list folder. Once again, an example of this is provided in the tests folder. 
  4. If a single output file is used and USE_CUSTOM_SHEETNAME is set to True (the recommended option), the sheetnames for each of the analyzed file must be given in target_list_sheetnames. This is done to allow descriptive file names to be preserved for the log without the sheetnames in excel becoming too long to be unwieldy. The sheetnames are to be put on newlines in the same way as for the target files; the script will simply pull the sheetnames specified in order and apply them to the analyzed data. As before, an example of this is provided in the tests folder.
  
-Note that while code work by itself, it also may accept a command-line that points it to the location of a configuration in the form of a yaml file (note, a yaml file is just a attribute-value data type like json or xml).This YAML file contains all of the configuration variables. An example of this is available in the tests folder.
+Note that while code work by itself, it also may accept a command-line that points it to the location of a configuration in the form of a yaml file (note, a yaml file is just a attribute-value data type like json or xml). This YAML file contains all of the configuration variables. An example of this is available in the tests folder.
  
 ## About the \tests directory
 
-This directory will allow a new user to run a functional example of the code, and see an example of how the analyzer is to be configured. If python is installed and added to path; and all of the requirements are installed, I have even provided a bat script that automatically runs it on windows when double-clicked. 
+This directory will allow a new user to run a functional example of the code, and see an example of how the analyzer is to be configured. If python is installed and added to path; and all of the requirements are installed, I have even provided bat scripts that automatically run it on windows when double-clicked. One script uses a python import and calls the function directly, another passes in a config file.
 
-The plan is to use the pytest utility to run a few unit tests on some key functions. It won't be a rigorous job but it's better than nothing, and will hopefully make any future development of this codebase easier. 
+
+The plan is to use the pytest utility to run a few unit tests on some key functions. It won't be a rigorous job but it's better than nothing, and will hopefully make any future development of this codebase easier.
 
 Reminder: In order to run all tests, pytest must be executed in the main directory of the project
  
