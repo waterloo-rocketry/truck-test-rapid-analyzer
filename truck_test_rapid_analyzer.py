@@ -72,45 +72,53 @@ def space_columns(target_sheet, depth=1, cols=0):
         columns.
     '''
 
-    if cols:
-        for col_count in range(1, cols + 1):
-            max_width = 0
-            for didx in range(1, depth + 1):
-                if isinstance(target_sheet.cell(didx, col_count).value, str):
-                    curr_width = len(target_sheet.cell(didx, col_count).value)
+    # if cols:
+    #     for col_count in range(1, cols + 1):
+    #         max_width = 0
+    #         for didx in range(1, depth + 1):
+    #             if isinstance(target_sheet.cell(didx, col_count).value, str):
+    #                 curr_width = len(target_sheet.cell(didx, col_count).value)
+    #
+    #                 target_sheet.cell(didx, col_count).alignment = Alignment(
+    #                     wrap_text=True)
+    #
+    #                 if curr_width > max_width:
+    #                     max_width = curr_width
+    #
+    #         target_sheet.column_dimensions[get_column_letter(
+    #             col_count)].width = int(0.75 * max_width)
+    #         target_sheet.cell(1, col_count).alignment = Alignment(
+    #             wrap_text=True)
+    
+    exit_flag = False
+    col_count = 1
+    
+    while not exit_flag:
+        max_width = 0
+        for didx in range(1, depth + 1):
+            if isinstance(target_sheet.cell(didx, col_count).value, str):
+                curr_width = len(target_sheet.cell(didx, col_count).value)
 
-                    target_sheet.cell(didx, col_count).alignment = Alignment(
-                        wrap_text=True)
+                target_sheet.cell(didx, col_count).alignment = Alignment(
+                    wrap_text=True)
 
-                    if curr_width > max_width:
-                        max_width = curr_width
+                if curr_width > max_width:
+                    max_width = curr_width
 
-            target_sheet.column_dimensions[get_column_letter(
-                col_count)].width = int(0.75 * max_width)
-            target_sheet.cell(1, col_count).alignment = Alignment(
-                wrap_text=True)
+        target_sheet.column_dimensions[get_column_letter(
+            col_count)].width = int(0.75 * max_width)
+        target_sheet.cell(1, col_count).alignment = Alignment(
+            wrap_text=True)
 
-    else:  # Scan columns until they are empty
+        col_count += 1
 
-        col_count = 1
-        while target_sheet.cell(1, col_count).value:
-            max_width = 0
-            for didx in range(1, depth + 1):
-                if isinstance(target_sheet.cell(didx, col_count).value, str):
-                    curr_width = len(target_sheet.cell(didx, col_count).value)
-
-                    target_sheet.cell(didx, col_count).alignment = Alignment(
-                        wrap_text=True)
-
-                    if curr_width > max_width:
-                        max_width = curr_width
-
-            target_sheet.column_dimensions[get_column_letter(
-                col_count)].width = int(0.75 * max_width)
-            target_sheet.cell(1, col_count).alignment = Alignment(
-                wrap_text=True)
-
-            col_count += 1
+        # Exit condition
+        if cols: # If a specific number of columns was specified
+            if col_count >= cols:
+                exit_flag = True
+        else: # If function is to scan columns until they are empty
+            if not target_sheet.cell(1, col_count).value:
+                exit_flag = True
 
 
 class Consts():
@@ -601,6 +609,7 @@ def create_meta_analysis(target_workbook, target_worksheet):
 
     row_index = 2
 
+    # Sheets that are excluded from the meta-analysis
     name_blacklist = ['Constants', 'README',
                       'Graphs', "Sheet", "META-ANALYSIS"]
     for idx in range(len(name_blacklist)):
