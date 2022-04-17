@@ -1,8 +1,0 @@
-0.1tau
-0.2tau
-0.2tau_r2
-0.3tau
-0.15tau
-0.25tau
-full_20km_hr
-full_40km_hr

@@ -128,12 +128,12 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Excel files
-*.csv
-*.xlsx
-*.xlsm
-
 # Eclipse config files
 *.project
 *.pydevproject
+analyzer_config.yaml
+
+### Other dev ignores
+# Just humor me
+README_ARTEM_PERSONAL.md 
 
