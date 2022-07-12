@@ -15,46 +15,7 @@ import sys
 
 from openpyxl.styles.alignment import Alignment
 
-# Configuration Variables:
-
-# Configures the script to analyze one specific data file.
-# This option is overridden if a file input hitlist is used (see further options below)
-USE_HARD_CODED_PATH = False
-
-# Input path for hard-coded option
-HARD_CODED_PATH = r"C:\example\given\path\a_file.csv"
-HARD_CODED_OUTPUT = "example_output.xlsx"  # Output path for hard-coded option
-
-
-FILE_INPUT_HITLIST = True  # If the script should input a list of file paths as input
-HITLIST_PATH = r"default_target_list.txt"  # Location of list
-
-# If the analysis should be output as one file (recommended)
-SINGLE_OUTPUT_FILE = True
-SINGLE_OUTPUT_FILE_PATH = "Complete Analysis.xlsx"  # Name of single file
-
-# If there is a seperate folder containing all inputs and outputs, it is specified here
-FILE_SUBDIRECTORY = r"default_data_folder"
-
-
-# Whether or not a custom name should be used for the sheetname
-USE_CUSTOM_SHEETNAMES = True
-
-# The location of the file where an ordered list of a custom name for every file
-# on the input hitlist is provided. This is ignored if custom sheenames are not in use
-SINGLE_OUTPUT_SHEETNAMES_PATH = r"default_target_list_sheetnames.txt"
-
-
-# When the analysis is output as a single file, this variable controls whether
-# the Data and Graphs for each csv data file will be in two seperate labelled sheets (if False),
-# or together in one sheet with both the data and grpahs of that data file (if True)
-CONDENSED_EXPORT_VERSION = True
-
-# For controlling printouts to console
-DEBUG_MODE = True
-DEBUG_MODE_VERBOSE = False
-
-# End of configuration variables
+from config_variables import *
 
 
 def space_columns(target_sheet, depth=1, cols=0):
@@ -74,7 +35,7 @@ def space_columns(target_sheet, depth=1, cols=0):
 
     exit_flag = False
     col_count = 1
-    
+
     while not exit_flag:
         max_width = 0
         for didx in range(1, depth + 1):
@@ -95,12 +56,13 @@ def space_columns(target_sheet, depth=1, cols=0):
         col_count += 1
 
         # Exit condition
-        if cols: # If a specific number of columns was specified
+        if cols:  # If a specific number of columns was specified
             if col_count >= cols:
                 exit_flag = True
-        else: # If function is to scan columns until they are empty
+        else:  # If function is to scan columns until they are empty
             if not target_sheet.cell(1, col_count).value:
                 exit_flag = True
+
 
 class HeaderManager():
     TIME_COL = 1
@@ -321,6 +283,8 @@ def create_graphs(data_sheet, output_sheet, max_idx):
 
     drag_area_chart += chart
     if output_sheet == None:
+        # If there is no separate output sheet specified, the data sheet is the output sheet,
+        # with the graph to the side of the data.
         output_sheet = data_sheet
         output_sheet.add_chart(drag_area_chart, 'O2')
     else:
@@ -482,7 +446,7 @@ def execute_analysis(input_path, output_path,
 
     row_idx = 1
     for row in list(csvreader):
-        if row_idx and row_idx != 1:
+        if row_idx > 1:
             if simple_filter(row):  # Data Filtering
                 process_sheet_row(row, row_idx, ws_data)
             else:
@@ -637,7 +601,7 @@ def execute_complete_analysis(config):
 
         row_idx = 1
         for row in list(csvreader):
-            if row_idx and row_idx != 1:
+            if row_idx > 1:
                 if simple_filter(row):  # Data Filtering
                     process_sheet_row(row, row_idx, ws_data)
                 else:
@@ -662,6 +626,7 @@ if __name__ == "__main__":
         with open(config_path) as file:
             config = yaml.load(file, Loader=yaml.FullLoader)
     else:  # Drawing configuration from variables in python script
+        # Impored from config_varaibles.py, see file for detailed description
         config['USE_HARD_CODED_PATH'] = USE_HARD_CODED_PATH
         config['HARD_CODED_PATH'] = HARD_CODED_PATH
         config['HARD_CODED_OUTPUT'] = HARD_CODED_OUTPUT
