@@ -117,8 +117,12 @@ class SimplifiedConsts():
              this may be a literal or an excel formula.
              Defaul value is None for same reason as varname_conv. 
         """
-        self.variables_raw.append(
-            locals())  # Add raw variable input to class variables list
+        # Add raw variable input to class variables list so that there is a record
+        # of all function calls and therefora all variables being managed
+        self.variables_raw.append({'title':title, 'varname_default': varname_default, 
+                                   'val_default':val_default, \
+                                   'varname_conv':varname_conv, 'val_conv':val_conv})  
+        
 
         row = self._next_row_idx
         self._next_row_idx += 1
