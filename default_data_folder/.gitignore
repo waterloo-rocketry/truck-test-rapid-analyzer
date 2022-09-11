@@ -1,0 +1,8 @@
+# Ignore everything in this directory
+*
+# Except this file
+!.gitignore
+
+# Solution for keeping an empty directory in git path courtesy of:
+# https://stackoverflow.com/questions/115983/how-can-i-add-a-blank-directory-to-a-git-repository
+

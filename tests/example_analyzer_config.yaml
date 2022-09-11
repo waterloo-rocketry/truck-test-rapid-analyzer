@@ -1,0 +1,12 @@
+USE_HARD_CODED_PATH: False
+HARD_CODED_PATH: ""
+HARD_CODED_OUTPUT: ""
+FILE_INPUT_HITLIST: True
+HITLIST_PATH: "tests\\example_hitlist.txt"
+SINGLE_OUTPUT_FILE: True
+SINGLE_OUTPUT_FILE_PATH: "Example Complete Analysis Using Config.xlsx" 
+FILE_SUBDIRECTORY: "tests\\example_data_directory"
+USE_CUSTOM_SHEETNAMES: True
+SINGLE_OUTPUT_SHEETNAMES_PATH: "tests\\example_hitlist_sheetnames.txt"
+CONDENSED_EXPORT_VERSION: True
+SUPPRESS_ALL_PRINTS: False
